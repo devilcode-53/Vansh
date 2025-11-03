@@ -1,5 +1,11 @@
 import asyncio
 import importlib
+import uvloop
+
+# Create and set the event loop *before* any other imports
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+uvloop.install() # Install uvloop policy right after setting the loop
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -59,4 +65,5 @@ async def init():
 
 
 if __name__ == "__main__":
+    # The loop is already created and set at the top
     loop.run_until_complete(init())
